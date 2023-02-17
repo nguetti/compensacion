@@ -1,0 +1,83 @@
+body {
+    display: flex;
+    justify-content: center;
+    padding: 30px;
+}
+
+.guardarborrar {
+    display: flex;
+    justify-content: center;;
+}
+
+button {
+    margin: 3px;}
+
+input.btn.btn-light {
+    width: 100%;
+}
+
+input.btn.btn-light:hover {
+    cursor:pointer;
+}
+
+.contenedor {
+    display: flex;
+    flex-direction: column;
+}
+
+a.volver {
+    color: white;
+    text-decoration: none;
+}
+
+p.negrita {
+    font-weight: 600;
+}
+p.buscar {
+    color: green;
+}
+
+p.negrita {
+    color: green;
+    font-weight: 600;
+    padding: 0;
+    margin: 0 0 0 0 ;}
+
+    p.negrita2 {
+        color: green;
+        font-weight: 600;
+        padding: 0;
+        margin: 0 0 0 15px ;}
+
+        p.negrita3 {
+            font-size: 14px;
+            padding: 0 15px 0 15px;
+            font-weight: 500;
+            color: rgb(42, 111, 145);
+        }
+
+p.separador {
+    margin-right: 5px
+}
+h4 {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 30px;
+}
+.contenedor{
+    display: flex;
+    flex-direction: column ;
+    justify-content: center;
+}
+.reglas {
+    justify-content: center;
+    max-width: 50%;
+    margin: 0;
+    padding: 10px;
+    margin: 5px;
+    width: 700px;
+}
+
+.btn.btn-light {
+    margin: 5px;
+}

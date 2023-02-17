@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
+    <link  rel="stylesheet"  href="/node_modules/bootstrap/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href=
+    "https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css" />
+    <link rel="stylesheet"  href="/node_modules/bootstrap-icons/font/bootstrap-icons.css"  >
+     <link rel="stylesheet" href="/css/styles.css" />
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <title>Compensación de stocks y creación de Templates</title>
+</head>
+
+<body>
+    <div class="body">
+   
+    <div class="contenedor">
+        <h4>Compensación de stocks y creación de Templates</h4>
+    
+    <form enctype="multipart/form-data" action="/uploadFile" method="POST" class="create-form">
+        
+        <div>
+            <p class="negrita">LA MAGA STORE</p><label> <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-upload" viewBox="0 0 16 16">
+                <path d="M.5 9.9a.5.5 0 0 1 .5.5v2.5a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1v-2.5a.5.5 0 0 1 1 0v2.5a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2v-2.5a.5.5 0 0 1 .5-.5z"/>
+                <path d="M7.646 1.146a.5.5 0 0 1 .708 0l3 3a.5.5 0 0 1-.708.708L8.5 2.707V11.5a.5.5 0 0 1-1 0V2.707L5.354 4.854a.5.5 0 1 1-.708-.708l3-3z"/>
+              </svg>  Subir excel de La Maga Store, proveniente de Contabilium, aquí :  </label>
+        <br>
+         
+            
+            <input class="btn btn-light"  type="file" name="file1">   
+         
+        </div>
+        <br>
+        <div>
+            <p class="negrita">RIO MEJOR</p> <label> <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-upload" viewBox="0 0 16 16">
+                <path d="M.5 9.9a.5.5 0 0 1 .5.5v2.5a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1v-2.5a.5.5 0 0 1 1 0v2.5a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2v-2.5a.5.5 0 0 1 .5-.5z"/>
+                <path d="M7.646 1.146a.5.5 0 0 1 .708 0l3 3a.5.5 0 0 1-.708.708L8.5 2.707V11.5a.5.5 0 0 1-1 0V2.707L5.354 4.854a.5.5 0 1 1-.708-.708l3-3z"/>
+              </svg>  Subir excel de Río Mejor, proveniente de Contabilium, aquí :  </label>
+            <br>
+             <input  class="btn btn-light" type="file" name="file2">  
+             <br>
+             <br>
+             <p class="negrita3"> Reglas de compensación:
+                <br>
+                - Se toman los SKU cuyo stock es menor o igual a 6 unidades.
+                <br>
+                - Si el rubro es "Medias" o "Boxers", cada 12 unidades se traspasan 3.
+                <br>
+                - Si el rubro es cualquier otro, cada 3 unidades se traspasa 1.
+                <br>
+                - Si hay modificación, el stock mayor siempre se asigna a Río Mejor.
+                
+            </p>
+        </div>
+            <br>
+
+                
+        <div class="guardarborrar control-formulario">
+            
+            <button type="reset" class="btn btn-primary"><i class="bi bi-x-square"></i> Borrar</button>
+            
+            <button type="submit" class="btn btn-success"><i class="bi bi-upload"></i> Generar Templates </button>
+
+            
+            
+            
+          </div>
+        
+    </form>
+</div>
+</div>
+    
+
+    
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js" integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN" crossorigin="anonymous"></script>
+</body>
+
+
+</html>
