@@ -11,7 +11,7 @@ const app =  express();
 app.use(express.urlencoded({ extended : false })) ;
 
 // ************ Route System require and use() ************
-const mainRouter = require('./routers/mainrouter')
+const mainRouter = require('./routers/mainRouter')
 const public = path.resolve(__dirname, './public');
 app.use( express.static(public)) ;
 
