@@ -12,8 +12,8 @@ app.use(express.urlencoded({ extended : false })) ;
 
 // ************ Route System require and use() ************
 const mainRouter = require('./routers/mainRouter')
-// const public = path.resolve(__dirname, './public');
-// app.use( express.static(public)) ;
+const public = path.resolve(__dirname, './public');
+app.use( express.static(public)) ;
 
 // ************ Template Engine - (don't touch) ************
 app.set('views', path.resolve(__dirname, 'views')) ;
