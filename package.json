@@ -6,7 +6,8 @@
   "scripts": {
     "start": "node index.js",
     "dev": "next",
-    "build": "node index.js"
+    "build": "next build",
+    "deploy": "vercel --prod"
   },
   "author": "",
   "license": "ISC",
