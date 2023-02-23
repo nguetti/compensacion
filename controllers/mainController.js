@@ -4,18 +4,17 @@ const createCsvWriter = require('csv-writer').createObjectCsvWriter;
 var XLSX = require("xlsx"); 
 const xl = require("excel4node")
 
+
 const mainController = {
 
     index:  (req,res)=>{
-        
         res.render('index')
     
     },
 
     upload: (req,res)=>{
-        
-        const excel1 = XLSX.readFile("C:\\Users\\nguet\\OneDrive\\Escritorio\\Programación\\stock\\excel\\" + req.files[0].originalname);
-        const excel2 = XLSX.readFile("C:\\Users\\nguet\\OneDrive\\Escritorio\\Programación\\stock\\excel\\" + req.files[1].originalname);
+        const excel1 = XLSX.readFile("./excel/" + req.files[0].originalname);
+        const excel2 = XLSX.readFile("./excel/" + req.files[1].originalname);
         
         var nombreHoja1 = excel1.SheetNames ;
         let RIO1 = XLSX.utils.sheet_to_json(excel1.Sheets[nombreHoja1[0]])
@@ -108,7 +107,7 @@ const mainController = {
         }
 
         const indiceEnAModificados = AModificados.findIndex(estaEnAModificados)
-        console.log("🚀 ~ file: mainController.js:111 ~ indiceEnAModificados", indiceEnAModificados)
+        // console.log("🚀 ~ file: mainController.js:111 ~ indiceEnAModificados", indiceEnAModificados)
         
         const indiceEnBModificados = BModificados.findIndex(estaEnBModificados)
 
@@ -204,11 +203,12 @@ const mainController = {
         "descripcion" : producto.Nombre,
         "Stock" : producto.Stock,
         "StockMinimo" : "" ,
-        "PrecioUnitario" : producto["Precio Unitario"],
+        "PrecioUnitario" : producto["Precio Unitario"].toString().replace(".",","),
         "Observaciones" : "" ,
         "Rentabilidad" : "",
         "Iva": producto.Iva,
-        "CostoInterno" : producto["Costo Interno"],
+        "CostoInterno" : producto["Costo Interno"].toString().replace(".",","),
+        "CodigoProveedor" : "",
         "Deposito": producto.Deposito,
         "CodigoBarra" : "",
         "Rubro" : producto.Rubro,
@@ -218,6 +218,7 @@ const mainController = {
     }))
     
     const csvWriterRio = createCsvWriter({
+        fieldDelimiter : ';',
         path: './excel/CSV-RIO-Template.csv',
         header: [
             {id: 'Nombre', title: 'Nombre'},
@@ -230,6 +231,7 @@ const mainController = {
             {id: 'Rentabilidad', title: 'Rentabilidad'},
             {id: 'Iva', title: 'Iva'},
             {id: 'CostoInterno', title: 'CostoInterno'},
+            {id: 'CodigoProveedor', title: 'CodigoProveedor'},
             {id: 'Deposito', title: 'Deposito'},
             {id: 'CodigoBarra', title: 'CodigoBarra'},
             {id: 'Rubro', title: 'Rubro'},
@@ -246,18 +248,21 @@ const mainController = {
         });
     
         /////////////////////////////////////////////////////////// CREACIÓN JSON CON FORMATO DE TEMPLATE LA MAGA
-     
+    
+    
     const LMS  = AModificados.map(producto => ({ //Aquí se define qué objeto (AModificados) va a estar en la salida.
         "Nombre" : producto.Nombre,
         "Codigo" : producto.Codigo,
         "descripcion" : producto.Nombre,
         "Stock" : producto.Stock,
         "StockMinimo" : "" ,
-        "PrecioUnitario" : producto["Precio Unitario"],
+        
+        "PrecioUnitario" : producto["Precio Unitario"].toString().replace(".",","),
         "Observaciones" : "" ,
         "Rentabilidad" : "",
         "Iva": producto.Iva,
-        "CostoInterno" : producto["Costo Interno"],
+        "CostoInterno" : producto["Costo Interno"].toString().replace(".",","),
+        "CodigoProveedor" : "",
         "Deposito": producto.Deposito,
         "CodigoBarra" : "",
         "Rubro" : producto.Rubro,
@@ -268,6 +273,7 @@ const mainController = {
     //console.log("LMS map linea 241", LMS)
     
     const csvWriterLMS = createCsvWriter({
+        fieldDelimiter : ';',
         
         path: './excel/CSV-LAMAGA-Template.csv',
         header: [
@@ -277,10 +283,12 @@ const mainController = {
             {id: 'Stock', title: 'Stock'},
             {id: 'StockMinimo', title: 'StockMinimo'},
             {id: 'PrecioUnitario', title: 'PrecioUnitario'},
+
             {id: 'Observaciones', title: 'Observaciones'},
             {id: 'Rentabilidad', title: 'Rentabilidad'},
             {id: 'Iva', title: 'Iva'},
             {id: 'CostoInterno', title: 'CostoInterno'},
+            {id: 'CodigoProveedor', title: 'CodigoProveedor'},
             {id: 'Deposito', title: 'Deposito'},
             {id: 'CodigoBarra', title: 'CodigoBarra'},
             {id: 'Rubro', title: 'Rubro'},
@@ -340,7 +348,7 @@ const mainController = {
             // ws.cell(2+i,8).string("Rentabilidad").style(style)
             ws.cell(2+i,9).number(AModificados[i].Iva).style(style)
             ws.cell(2+i,10).number(AModificados[i]['Costo Interno']).style(style)
-            // ws.cell(2+i,11).string("CodigoProveedor").style(style)
+            //ws.cell(2+i,11).string("CodigoProveedor").style(style)
             ws.cell(2+i,12).string(AModificados[i].Deposito).style(style)
             // ws.cell(2+i,13).string("CodigoBarra").style(style)
             ws.cell(2+i,14).string(AModificados[i].Rubro).style(style)
@@ -402,7 +410,7 @@ const mainController = {
             // ws.cell(2+i,8).string("Rentabilidad").style(style)
             ws.cell(2+i,9).number(BModificados[i].Iva).style(style)
             ws.cell(2+i,10).number(BModificados[i]['Costo Interno']).style(style)
-            // ws.cell(2+i,11).string("CodigoProveedor").style(style)
+            //ws.cell(2+i,11).string("CodigoProveedor").style(style)
             ws.cell(2+i,12).string(BModificados[i].Deposito).style(style)
             // ws.cell(2+i,13).string("CodigoBarra").style(style)
             ws.cell(2+i,14).string(BModificados[i].Rubro).style(style)

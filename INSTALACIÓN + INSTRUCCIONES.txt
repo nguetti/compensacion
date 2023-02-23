@@ -1,0 +1,28 @@
+SÓLO LA PRIMERA VEZ QUE SE USA EN UNA COMPUTADORA (PASOS 1 AL 8)
+1. Instalar Visual Studio Code
+2. Instalar Nodejs
+3. Abrir VSCode, y en la terminal posicionarse en la carpeta del programa.
+4. Ejecutar el comando "npm init"
+5. Ejecutar el comando "npm i express"
+6. Ejecutar el comando "npm i git" (o buscar Git en el explorador de internet e instalarlo)
+7. ejecutar el siguiente comando en la terminal:
+   git clone https://github.com/nguetti/compensacion.git
+8. Colocar correctamente la ruta de destino de los archivos que cargamos (lineas 17 y 18 en el archivo mainController, dentro de la carpeta controllers.
+
+¿CÓMO ABRIR EL PROGRAMA? (pasos 10 y 11)
+10. Ir a la carpeta en la que está almacenado el programa. 
+11. Click derecho y en la lista que se desplega clickear "Git Bash Here"
+9. En la terminal que se abre, ejecutar el comando "npm start"
+10. Ir al sitio web "localhost:3000" en un explorador web.
+
+
+///////////// a modificar en las pc de nina y pablo
+-Agregar CódigoProveedor en los csv de salida.
+Líneas a modificar en el archivo mainController.js: 
+212, 235, 264, 288, 329, 392, 
+
+-Líneas 222 y 275, colocar exactamente lo que dice a continuación:
+fieldDelimiter : ';',   
+
+-Para cambiar decimales "." por "," agregar esto en la creación de los campos "precioUnitario" y "CostoInterno" al crear los CSV
+ .toString().replace(".",","),

@@ -13,6 +13,7 @@ app.use(express.urlencoded({ extended : false })) ;
 // ************ Route System require and use() ************
 const mainRouter = require('./routers/mainRouter')
 const public = path.resolve(__dirname, './public');
+
 app.use( express.static(public)) ;
 
 // ************ Template Engine - (don't touch) ************
@@ -23,6 +24,8 @@ app.set('view engine', 'ejs') ;
 const port = process.env.PORT || 3000
 app.listen(port, ()=>{console.log("Servidor corriendo en puerto 3000")} )   
 app.use('/', mainRouter);
+
+
 
 
 
