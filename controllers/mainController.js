@@ -69,13 +69,17 @@ const mainController = {
                                                      
                                                         }
                                                     }
+                                                    
+                                                    
                                                         var restaOriginal = aSumarEnA - A[indiceEnA]['Stock Disponible'];  
-                                                        A[indiceEnA].Stock = aSumarEnA + A[indiceEnA].Reserva;                                                                                      
-                                                        B[indiceEnB].Stock -= restaOriginal 
-                                                
-    
-                                                        AModificados.push(A[indiceEnA])
-                                                        BModificados.push(B[indiceEnB])
+                                                        if(restaOriginal >0){
+                                                            A[indiceEnA].Stock = aSumarEnA + A[indiceEnA].Reserva;                                                                                      
+                                                            B[indiceEnB].Stock -= restaOriginal 
+                                                            
+                                                            
+                                                            AModificados.push(A[indiceEnA])
+                                                            BModificados.push(B[indiceEnB])
+                                                        }
                                                   }
                                            
                          }
@@ -142,46 +146,47 @@ const mainController = {
     
                                                     }
                                                 }
-                                                    
+                                                
                                                     
                                                 var restaOriginal2 = aSumarEnB - B[indiceEnB]['Stock Disponible'];  
-                                                // console.log("🚀 ~ file: mainController.js:124 ~ restaOriginal2", restaOriginal2)
-                                                // console.log("🚀 ~ file: mainController.js:124 ~ B[indiceEnB]['Stock Disponible']", B[indiceEnB]['Stock Disponible'])
-                                                // console.log("🚀 ~ file: mainController.js:124 ~ aSumarEnB", aSumarEnB)
-                                               // console.log("🚀 ~ file: mainController.js:129 ~  B[indiceEnB].Stock antes",  B[indiceEnB].Stock)
-                                               // console.log("🚀 ~ file: mainController.js:119 ~ aSumarEnB antes", aSumarEnB)
-                                                B[indiceEnB].Stock = aSumarEnB//  + B[indiceEnB].Stock  //Reserva
-                                               //  console.log("🚀 ~ file: mainController.js:129 ~  B[indiceEnB].Stock despues",  B[indiceEnB].Stock)
-                                                // console.log("🚀 ~ file: mainController.js:129 ~ B[indiceEnB].Reserva", B[indiceEnB].Reserva)
-                                                // console.log("🚀 ~ file: mainController.js:129 ~ aSumarEnB", aSumarEnB)
-                                                A[indiceEnA].Stock -= restaOriginal2
-                                                // console.log("🚀 ~ file: mainController.js:133 ~ A[indiceEnA].Stock", A[indiceEnA].Stock)
-                                                // console.log("🚀 ~ file: mainController.js:128 ~  A[indiceEnA].Stock -= restaOriginal2",  A[indiceEnA].Stock -= restaOriginal2)
-                                                //console.log("A[indiceEnA].Stock operado sin revertir", A[indiceEnA].Stock)
-                                                //console.log("B[indiceEnB].Stock operado sin revertir", B[indiceEnB].Stock)
-                                                
-                                                Acumulador = A[indiceEnA].Stock - A[indiceEnA].Reserva
-                                                // console.log("🚀 ~ file: mainController.js:138 ~ Acumulador", Acumulador)
-                                                // console.log("🚀 ~ file: mainController.js:138 ~ A[indiceEnA].Reserva", A[indiceEnA].Reserva)
-                                                // console.log("🚀 ~ file: mainController.js:138 ~ A[indiceEnA].Stock", A[indiceEnA].Stock)
-                                                A[indiceEnA].Stock = B[indiceEnB].Stock + A[indiceEnA].Reserva
-                                               
-                                                B[indiceEnB].Stock = Acumulador
 
+                                                if(restaOriginal2 > 0){  // Esto es para evitar que sin son medias o boxer y no hubo modificacion (por cantidades insuficientes) no invierta RIO y LMS
+                                                        // console.log("🚀 ~ file: mainController.js:124 ~ restaOriginal2", restaOriginal2)
+                                                        // console.log("🚀 ~ file: mainController.js:124 ~ B[indiceEnB]['Stock Disponible']", B[indiceEnB]['Stock Disponible'])
+                                                        // console.log("🚀 ~ file: mainController.js:124 ~ aSumarEnB", aSumarEnB)
+                                                        // console.log("🚀 ~ file: mainController.js:119 ~ aSumarEnB antes", aSumarEnB)
+                                                        B[indiceEnB].Stock = aSumarEnB //+ B[indiceEnB].Stock  //Reserva
+                                                        //  console.log("🚀 ~ file: mainController.js:129 ~  B[indiceEnB].Stock despues",  B[indiceEnB].Stock)
+                                                        // console.log("🚀 ~ file: mainController.js:129 ~ B[indiceEnB].Reserva", B[indiceEnB].Reserva)
+                                                        // console.log("🚀 ~ file: mainController.js:129 ~ aSumarEnB", aSumarEnB)
+                                                        A[indiceEnA].Stock -= restaOriginal2
+                                                        // console.log("🚀 ~ file: mainController.js:133 ~ A[indiceEnA].Stock", A[indiceEnA].Stock)
+                                                        // console.log("🚀 ~ file: mainController.js:128 ~  A[indiceEnA].Stock -= restaOriginal2",  A[indiceEnA].Stock -= restaOriginal2)
+                                                        //console.log("A[indiceEnA].Stock operado sin revertir", A[indiceEnA].Stock)
+                                                        //console.log("B[indiceEnB].Stock operado sin revertir", B[indiceEnB].Stock)
+                                                        
+                                                        Acumulador = A[indiceEnA].Stock - A[indiceEnA].Reserva
+                                                        // console.log("🚀 ~ file: mainController.js:138 ~ Acumulador", Acumulador)
+                                                        // console.log("🚀 ~ file: mainController.js:138 ~ A[indiceEnA].Reserva", A[indiceEnA].Reserva)
+                                                        // console.log("🚀 ~ file: mainController.js:138 ~ A[indiceEnA].Stock", A[indiceEnA].Stock)
+                                                        A[indiceEnA].Stock = B[indiceEnB].Stock + A[indiceEnA].Reserva
+                                                        
+                                                        B[indiceEnB].Stock = Acumulador + B[indiceEnB].Reserva
+                                                        
+                                                        
+                                                        if (indiceEnAModificados == -1){
+                                                            AModificados.push(A[indiceEnA])
+                                                        } else {
+                                                            AModificados[indiceEnAModificados].Stock =  A[indiceEnA].Stock
+                                                        }
+                                                    
+                                                        if (indiceEnBModificados == -1){
+                                                            BModificados.push(B[indiceEnB])
+                                                        } else {
+                                                            BModificados[indiceEnBModificados].Stock =  B[indiceEnB].Stock
+                                                        }
 
-                                                if (indiceEnAModificados == -1){
-                                                    AModificados.push(A[indiceEnA])
-                                                } else {
-                                                    AModificados[indiceEnAModificados].Stock =  A[indiceEnA].Stock
                                                 }
-
-                                                if (indiceEnBModificados == -1){
-                                                    BModificados.push(B[indiceEnB])
-                                                } else {
-                                                    BModificados[indiceEnBModificados].Stock =  B[indiceEnB].Stock
-                                                }
-
-                                                
                                                 
                                                 //console.log("################################")
                                              }
@@ -203,7 +208,7 @@ const mainController = {
         "descripcion" : producto.Nombre,
         "Stock" : producto.Stock,
         "StockMinimo" : "" ,
-        "PrecioUnitario" : producto["Precio Unitario"].toString().replace(".",","),
+        "PrecioUnitario" : producto["Precio Final"].toString().replace(".",","),
         "Observaciones" : "" ,
         "Rentabilidad" : "",
         "Iva": producto.Iva,
@@ -213,6 +218,7 @@ const mainController = {
         "CodigoBarra" : "",
         "Rubro" : producto.Rubro,
         "SubRubro": producto["Sub Rubro"],
+        "Tipo" : "" ,
         "PrecioAutomatico": "" 
 
     }))
@@ -236,6 +242,7 @@ const mainController = {
             {id: 'CodigoBarra', title: 'CodigoBarra'},
             {id: 'Rubro', title: 'Rubro'},
             {id: 'SubRubro', title: 'SubRubro'},
+            {id: 'Tipo', title: 'Tipo'},
             {id: 'PrecioAutomatico', title: 'PrecioAutomatico'},
                         
         ]
@@ -257,7 +264,7 @@ const mainController = {
         "Stock" : producto.Stock,
         "StockMinimo" : "" ,
         
-        "PrecioUnitario" : producto["Precio Unitario"].toString().replace(".",","),
+        "PrecioUnitario" : producto["Precio Final"].toString().replace(".",","),
         "Observaciones" : "" ,
         "Rentabilidad" : "",
         "Iva": producto.Iva,
@@ -267,10 +274,10 @@ const mainController = {
         "CodigoBarra" : "",
         "Rubro" : producto.Rubro,
         "SubRubro": producto["Sub Rubro"],
+        "Tipo" : "",
         "PrecioAutomatico": "" 
 
     }))
-    //console.log("LMS map linea 241", LMS)
     
     const csvWriterLMS = createCsvWriter({
         fieldDelimiter : ';',
@@ -293,6 +300,7 @@ const mainController = {
             {id: 'CodigoBarra', title: 'CodigoBarra'},
             {id: 'Rubro', title: 'Rubro'},
             {id: 'SubRubro', title: 'SubRubro'},
+            {id: 'Tipo', title: 'Tipo'},
             {id: 'PrecioAutomatico', title: 'PrecioAutomatico'},
                         
         ]
@@ -334,7 +342,8 @@ const mainController = {
         ws.cell(1,13).string("CodigoBarra").style(style)
         ws.cell(1,14).string("Rubro").style(style)
         ws.cell(1,15).string("SubRubro").style(style)
-        ws.cell(1,16).string("PrecioAutomatico").style(style)
+        ws.cell(1,16).string("Tipo").style(style)
+        ws.cell(1,17).string("PrecioAutomatico").style(style)
     
         
         for(i=0; i<AModificados.length; i++){                   // Carga todos los datos de los objetos de AModificados en el excel
@@ -343,7 +352,7 @@ const mainController = {
             ws.cell(2+i,3).string(AModificados[i].Nombre).style(style)
             ws.cell(2+i,4).number(AModificados[i].Stock).style(style)
             // ws.cell(2+i,5).number(A[i]['Stock Minimo']).style(style)
-            ws.cell(2+i,6).number(AModificados[i]['Precio Unitario']).style(style)
+            ws.cell(2+i,6).number(AModificados[i]['Precio Final']).style(style)
             // ws.cell(2+i,7).string("Observaciones").style(style)
             // ws.cell(2+i,8).string("Rentabilidad").style(style)
             ws.cell(2+i,9).number(AModificados[i].Iva).style(style)
@@ -397,7 +406,8 @@ const mainController = {
         ws.cell(1,13).string("CodigoBarra").style(style)
         ws.cell(1,14).string("Rubro").style(style)
         ws.cell(1,15).string("SubRubro").style(style)
-        ws.cell(1,16).string("PrecioAutomatico").style(style)
+        ws.cell(1,16).string("Tipo").style(style)
+        ws.cell(1,17).string("PrecioAutomatico").style(style)
        
         for(i=0; i<BModificados.length; i++){
             ws.cell(2+i,1).string(BModificados[i].Nombre).style(style)
@@ -405,7 +415,7 @@ const mainController = {
             ws.cell(2+i,3).string(BModificados[i].Nombre).style(style)
             ws.cell(2+i,4).number(BModificados[i].Stock).style(style)
             // ws.cell(2+i,5).number(A[i]['Stock Minimo']).style(style)
-            ws.cell(2+i,6).number(BModificados[i]['Precio Unitario']).style(style)
+            ws.cell(2+i,6).number(BModificados[i]['Precio Final']).style(style)
             // ws.cell(2+i,7).string("Observaciones").style(style)
             // ws.cell(2+i,8).string("Rentabilidad").style(style)
             ws.cell(2+i,9).number(BModificados[i].Iva).style(style)
