@@ -47,7 +47,7 @@ const mainController = {
              const indiceEnA = A.findIndex(estaEnA)
             const indiceEnB = B.findIndex(estaEnB)          // Busca el índice en RIO del artículo que queremos compensar
             if(indiceEnB>=0){                                 // Si lo encuentra realiza la operatoria para compensar stocks que se define a continuación 
-                         if(B[indiceEnB]['Stock Disponible'] >=3){   //toma la unidad mínima (en Río) para realizar cambios, que es 3 (la unidad mínima entre las reglas establecidas)
+                         if(B[indiceEnB]['Stock Disponible'] >=3 && B[indiceEnB]['Stock Disponible'] > A[indiceEnA]['Stock Disponible']){   //toma la unidad mínima (en Río) para realizar cambios, que es 3 (la unidad mínima entre las reglas establecidas)
                                                     let contProvisorioB = B[indiceEnB]['Stock Disponible']                // define un acumulador provisorio equivalente al stock inicial de ese artículo en RIO
                                                     let aSumarEnA = A[indiceEnA]['Stock Disponible']
                                                     // console.log("SKU", SKU)
@@ -73,8 +73,10 @@ const mainController = {
                                                     
                                                         var restaOriginal = aSumarEnA - A[indiceEnA]['Stock Disponible'];  
                                                         if(restaOriginal >0){
-                                                            A[indiceEnA].Stock = aSumarEnA + A[indiceEnA].Reserva;                                                                                      
+                                                            A[indiceEnA].Stock = aSumarEnA + A[indiceEnA].Reserva;
+                                                            A[indiceEnA]['Stock Disponible']= A[indiceEnA].Stock - A[indiceEnA].Reserva                                                                                 
                                                             B[indiceEnB].Stock -= restaOriginal 
+                                                            B[indiceEnB]['Stock Disponible'] = B[indiceEnB].Stock - B[indiceEnB].Reserva
                                                             
                                                             
                                                             AModificados.push(A[indiceEnA])
@@ -119,7 +121,7 @@ const mainController = {
         const indiceEnB = B.findIndex(estaEnB)
        const indiceEnA = A.findIndex(estaEnA)
        if(indiceEnA>=0){
-                    if(A[indiceEnA]['Stock Disponible'] >= 3){ 
+                    if(A[indiceEnA]['Stock Disponible'] >= 3 && A[indiceEnA]['Stock Disponible'] >  B[indiceEnB]['Stock Disponible']){ 
                                                 let contProvisorioA = A[indiceEnA]['Stock Disponible']   
                                                         //  console.log("🚀 ~ file: mainController.js:103 ~ contProvisorioA", contProvisorioA)
                                                           // define un acumulador provisorio equivalente al stock inicial de ese artículo en RIO
@@ -164,7 +166,7 @@ const mainController = {
                                                         // console.log("🚀 ~ file: mainController.js:128 ~  A[indiceEnA].Stock -= restaOriginal2",  A[indiceEnA].Stock -= restaOriginal2)
                                                         //console.log("A[indiceEnA].Stock operado sin revertir", A[indiceEnA].Stock)
                                                         //console.log("B[indiceEnB].Stock operado sin revertir", B[indiceEnB].Stock)
-                                                        
+                                                        if(A[indiceEnA].Stock > B[indiceEnB].Stock){ ///////////////////////////////////////////
                                                         Acumulador = A[indiceEnA].Stock - A[indiceEnA].Reserva
                                                         // console.log("🚀 ~ file: mainController.js:138 ~ Acumulador", Acumulador)
                                                         // console.log("🚀 ~ file: mainController.js:138 ~ A[indiceEnA].Reserva", A[indiceEnA].Reserva)
@@ -172,7 +174,9 @@ const mainController = {
                                                         A[indiceEnA].Stock = B[indiceEnB].Stock + A[indiceEnA].Reserva
                                                         
                                                         B[indiceEnB].Stock = Acumulador + B[indiceEnB].Reserva
-                                                        
+                                                        } else {                                                            //////////////
+                                                           B[indiceEnB].Stock = B[indiceEnB].Stock + B[indiceEnB].Reserva   ///////////////
+                                                        }   //                                                              ////////////
                                                         
                                                         if (indiceEnAModificados == -1){
                                                             AModificados.push(A[indiceEnA])
