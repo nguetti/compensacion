@@ -30,7 +30,7 @@ const mainController = {
 
     
     //******************** PASAR STOCK DE RIO MEJOR (RIO2) A LA MAGA STORE (RIO1) ***********/
-        const artSinStock = A.filter(sinStock => sinStock['Stock Disponible']<=6)                  //filtra articulos sin STOCK en ((LAMAGA))
+        const artSinStock = A.filter(sinStock => sinStock['Stock Disponible']<=6  || (sinStock['Stock Disponible']<=24 && (sinStock.Rubro == "Boxers" || sinStock.Rubro == "Medias" )))                  //filtra articulos sin STOCK en ((LAMAGA))
         //console.log("🚀 ~ file: mainController.js:35 ~ artSinStock", artSinStock)
         
        for(let i = 0; i < artSinStock.length ; i++){                                     
@@ -90,7 +90,7 @@ const mainController = {
         
     
     //******************** PASAR STOCK DE LA MAGA STORE (RIO1) A RIO MEJOR (RIO2)  ***********/
-    const artSinStock2 = B.filter(sinStock => sinStock['Stock Disponible'] <= 6)
+    const artSinStock2 = B.filter(sinStock => sinStock['Stock Disponible'] <= 6 || (sinStock['Stock Disponible']<=24 && (sinStock.Rubro == "Boxers" || sinStock.Rubro == "Medias" )))
     
     for(let i = 0; i < artSinStock2.length ; i++){  //
        
